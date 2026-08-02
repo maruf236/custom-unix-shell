@@ -63,7 +63,7 @@ Command parse_command(vector<string> words)
     }
     return cmd;
 }
-Pipeline parse_line(string line)
+Pipeline parse_line(const string &line)
 {
     Pipeline pipeline;
     // Step 1:

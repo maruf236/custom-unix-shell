@@ -68,7 +68,7 @@ void printDirectory()
     }
 }
 // Add command to history
-void add_to_history(string command)
+void add_to_history(const string &command)
 {
     if(command.empty())
         return;
@@ -113,7 +113,7 @@ void showAliases()
     }
 }
 // Replace alias with original command
-string expand_alias(string command)
+string expand_alias(const string &command)
 {
     if(g_aliases.find(command) != g_aliases.end())
     {
