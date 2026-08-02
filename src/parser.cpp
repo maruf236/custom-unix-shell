@@ -6,7 +6,7 @@ using namespace std;
 // "ls -l | grep cpp"
 // becomes:
 // ["ls", "-l", "|", "grep", "cpp"]
-vector<string> tokenize(string line)
+vector<string> tokenize(const string &line)
 {
     vector<string> words;
     string word;
