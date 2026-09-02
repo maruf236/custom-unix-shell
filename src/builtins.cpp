@@ -20,7 +20,7 @@ vector<string> g_history;
 map<string, string> g_aliases;
 
 
-// Check if command is a built-in command
+// Check if command is a built-in command or not 
 
 bool is_builtin(const string &cmd_name)
 {
@@ -32,15 +32,9 @@ bool is_builtin(const string &cmd_name)
            cmd_name == "unalias";
 }
 
-
-// Change current directory
-
 void changeDirectory(Command &cmd)
 {
     string path;
-
-    // If no directory is given, go to home directory
-
     if(cmd.args.size() < 2)
     {
         char *home = getenv("HOME");
@@ -65,9 +59,6 @@ void changeDirectory(Command &cmd)
     }
 }
 
-
-// Print current directory
-
 void printDirectory()
 {
     char path[PATH_MAX];
@@ -82,28 +73,16 @@ void printDirectory()
     }
 }
 
-
-// Add command to history
-
 void add_to_history(const string &command)
 {
     if(command.empty())
         return;
-
-
     g_history.push_back(command);
-
-
-    // Remove oldest command if history becomes too large
-
     if(g_history.size() > HISTORY_SIZE)
     {
         g_history.erase(g_history.begin());
     }
 }
-
-
-// Display command history
 
 void showHistory()
 {
@@ -116,24 +95,15 @@ void showHistory()
     }
 }
 
-
-// Create or update an alias
-
 void createAlias(string name, string value)
 {
     g_aliases[name] = value;
 }
 
-
-// Delete alias
-
 void removeAlias(string name)
 {
     g_aliases.erase(name);
 }
-
-
-// Display all aliases
 
 void showAliases()
 {
@@ -147,9 +117,6 @@ void showAliases()
     }
 }
 
-
-// Replace alias with original command
-
 string expand_alias(const string &command)
 {
     if(g_aliases.find(command) != g_aliases.end())
@@ -162,9 +129,6 @@ string expand_alias(const string &command)
 
 
 // Handle alias command
-//
-// Example:
-// alias ll=ls -l
 
 void handleAlias(Command &cmd)
 {
@@ -176,9 +140,6 @@ void handleAlias(Command &cmd)
 
 
     string data;
-
-
-    // Join all arguments after alias
 
     for(size_t i = 1; i < cmd.args.size(); i++)
     {
@@ -207,9 +168,6 @@ void handleAlias(Command &cmd)
     createAlias(name, value);
 }
 
-
-// Remove alias
-
 void handleUnalias(Command &cmd)
 {
     if(cmd.args.size() < 2)
@@ -217,21 +175,12 @@ void handleUnalias(Command &cmd)
         cout << "unalias requires name" << endl;
         return;
     }
-
-
     removeAlias(cmd.args[1]);
 }
-
-
 // Run built-in command
-//
-// Return true when shell needs to exit
-
 bool run_builtin(Command &cmd)
 {
     string command = cmd.args[0];
-
-
     if(command == "cd")
     {
         changeDirectory(cmd);
